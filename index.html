@@ -3,23 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Attribution Outils IA — Master</title>
+<title>Outils IA Mini-Projets Master</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Space+Mono:wght@400;700&display=swap');
 
   :root {
-    --bg: #ffffff;
-    --surface: #f4f6fa;
-    --border: #dde1ea;
-    --accent1: #0099aa;
-    --accent2: #e0284a;
-    --accent3: #c48a00;
-    --accent4: #7c4ddb;
-    --accent5: #1a7abf;
-    --accent7: #1f9e4a;
-    --text: #1a1d26;
-    --text-muted: #6b7280;
-    --header-bg: #eef1f7;
+    --bg: #0d0f14;
+    --surface: #151820;
+    --border: #252a36;
+    --text: #e8eaf0;
+    --text-muted: #7a8090;
+    --header-bg: #1a1f2e;
+    --accent: #00e5c8;
+    --accent2: #a78bfa;
+    --accent3: #ffd166;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -29,59 +26,105 @@
     color: var(--text);
     font-family: 'Space Mono', monospace;
     min-height: 100vh;
-    padding: 40px 20px 60px;
+    padding: 36px 20px 60px;
   }
 
-  .hero { text-align: center; margin-bottom: 40px; }
+  /* ── HERO ── */
+  .hero {
+    text-align: center;
+    margin-bottom: 44px;
+  }
 
-  .hero::before {
-    content: '';
+  .hero-line {
     display: block;
-    width: 180px;
+    width: 160px;
     height: 2px;
-    background: linear-gradient(90deg, transparent, #0099aa, #7c4ddb, transparent);
-    margin: 0 auto 28px;
+    background: linear-gradient(90deg, transparent, var(--accent), var(--accent2), transparent);
+    margin: 0 auto 26px;
+    border-radius: 2px;
   }
 
   .hero h1 {
     font-family: 'Syne', sans-serif;
     font-weight: 800;
-    font-size: clamp(1.6rem, 4vw, 2.8rem);
+    font-size: clamp(1.7rem, 4.5vw, 3rem);
     letter-spacing: -0.02em;
     line-height: 1.1;
-    color: var(--text);
-    margin-bottom: 10px;
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 55%, #ff4d6d 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 14px;
   }
 
-  .hero p { color: var(--text-muted); font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; }
+  .hero-sub {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--text-muted);
+    font-size: 0.78rem;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+  }
 
-  .group-tabs { display: flex; gap: 10px; margin-bottom: 24px; flex-wrap: wrap; }
-
-  .tab-btn {
+  .hero-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    color: #000;
     font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 0.78rem;
+    padding: 2px 11px;
+    border-radius: 20px;
+    letter-spacing: 0;
+  }
+
+  /* ── FILTER ROWS ── */
+  .filter-section { margin-bottom: 16px; }
+
+  .filter-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.65rem;
     font-weight: 700;
-    font-size: 0.8rem;
-    padding: 8px 20px;
-    border-radius: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+  }
+
+  .filter-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+  }
+
+  .chip {
+    font-family: 'Syne', sans-serif;
+    font-weight: 600;
+    font-size: 0.72rem;
+    padding: 5px 13px;
+    border-radius: 20px;
     border: 1px solid var(--border);
     background: var(--surface);
     color: var(--text-muted);
     cursor: pointer;
-    transition: all 0.2s;
+    transition: all 0.18s;
+    white-space: nowrap;
   }
 
-  .tab-btn.active { background: #0099aa; color: #fff; border-color: #0099aa; }
-  .tab-btn:hover:not(.active) { border-color: #0099aa; color: #0099aa; }
+  .chip:hover { border-color: var(--accent); color: var(--accent); }
+  .chip.active { background: var(--accent); color: #000; border-color: var(--accent); }
 
-  .controls-row {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 20px;
-    flex-wrap: wrap;
+  /* group chips use accent2 */
+  .chip.group-chip:hover  { border-color: var(--accent2); color: var(--accent2); }
+  .chip.group-chip.active { background: var(--accent2); color: #000; border-color: var(--accent2); }
+
+  /* ── SEARCH ── */
+  .search-wrap {
+    position: relative;
+    max-width: 380px;
+    margin-bottom: 22px;
   }
-
-  .search-wrap { position: relative; flex: 1; min-width: 200px; max-width: 400px; }
 
   .search-wrap input {
     width: 100%;
@@ -96,32 +139,22 @@
     transition: border-color 0.2s;
   }
 
-  .search-wrap input:focus { border-color: #0099aa; }
+  .search-wrap input:focus { border-color: var(--accent); }
   .search-wrap input::placeholder { color: var(--text-muted); }
 
   .search-wrap svg {
     position: absolute; left: 12px; top: 50%;
-    transform: translateY(-50%); color: var(--text-muted); pointer-events: none;
+    transform: translateY(-50%);
+    color: var(--text-muted); pointer-events: none;
   }
 
-  .export-btn {
-    font-family: 'Syne', sans-serif;
-    font-weight: 700;
-    font-size: 0.75rem;
-    padding: 9px 20px;
-    border-radius: 8px;
-    border: 1px solid var(--accent1);
-    background: rgba(0,229,200,0.1);
-    color: var(--accent1);
-    cursor: pointer;
-    transition: all 0.2s;
-    white-space: nowrap;
+  /* ── STATS ── */
+  .stats {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 22px;
   }
-
-  .export-btn:hover { background: var(--accent1); color: #000; }
-  .export-btn:disabled { opacity: 0.5; cursor: not-allowed; }
-
-  .stats { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 24px; }
 
   .stat-card {
     background: var(--surface);
@@ -129,7 +162,7 @@
     border-radius: 10px;
     padding: 10px 18px;
     flex: 1;
-    min-width: 100px;
+    min-width: 90px;
     text-align: center;
   }
 
@@ -140,13 +173,19 @@
     display: block;
   }
 
-  .stat-card .label { font-size: 0.62rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; }
+  .stat-card .lbl {
+    font-size: 0.6rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
 
+  /* ── TABLE ── */
   .table-wrap {
     overflow-x: auto;
     border-radius: 14px;
     border: 1px solid var(--border);
-    box-shadow: 0 0 60px rgba(0,229,200,0.05);
+    box-shadow: 0 0 50px rgba(0,229,200,0.04);
   }
 
   table { width: 100%; border-collapse: collapse; font-size: 0.78rem; }
@@ -156,39 +195,39 @@
   thead th {
     font-family: 'Syne', sans-serif;
     font-weight: 700;
-    font-size: 0.7rem;
+    font-size: 0.68rem;
     text-transform: uppercase;
     letter-spacing: 0.1em;
-    color: var(--text-muted);
     padding: 14px 16px;
     text-align: left;
     white-space: nowrap;
+    color: var(--text-muted);
   }
 
   thead th:nth-child(1) { color: var(--text-muted); }
-  thead th:nth-child(2) { color: var(--accent1); }
-  thead th:nth-child(3) { color: var(--accent4); }
+  thead th:nth-child(2) { color: var(--accent); }
+  thead th:nth-child(3) { color: var(--accent2); }
   thead th:nth-child(4) { color: var(--accent3); }
-  thead th:nth-child(5) { color: var(--accent5); }
-  thead th:nth-child(6) { color: var(--accent7); }
+  thead th:nth-child(5) { color: #38bdf8; }
+  thead th:nth-child(6) { color: #4ade80; }
 
-  tbody tr { border-bottom: 1px solid var(--border); transition: background 0.15s; }
-  tbody tr:hover { background: rgba(255,255,255,0.03); }
+  tbody tr { border-bottom: 1px solid var(--border); transition: background 0.14s; }
+  tbody tr:hover { background: rgba(255,255,255,0.025); }
   tbody tr:last-child { border-bottom: none; }
+  tbody tr.hidden { display: none; }
 
   td { padding: 12px 16px; vertical-align: middle; line-height: 1.5; }
 
-  .num-cell { color: var(--text-muted); font-size: 0.68rem; }
+  .n { color: var(--text-muted); font-size: 0.66rem; }
 
-  .student-name {
+  .student {
     font-family: 'Syne', sans-serif;
     font-weight: 700;
     font-size: 0.82rem;
     white-space: nowrap;
-    color: var(--text);
   }
 
-  .tool-name {
+  .tool {
     font-family: 'Syne', sans-serif;
     font-weight: 700;
     font-size: 0.82rem;
@@ -199,7 +238,7 @@
     display: inline-flex;
     align-items: center;
     gap: 5px;
-    font-size: 0.65rem;
+    font-size: 0.64rem;
     font-family: 'Syne', sans-serif;
     font-weight: 600;
     padding: 2px 9px;
@@ -208,52 +247,77 @@
     border: 1px solid;
   }
 
-  .project-idea {
+  .project {
     font-size: 0.72rem;
     color: var(--text);
-    max-width: 320px;
-    line-height: 1.6;
+    max-width: 310px;
+    line-height: 1.65;
     border-left: 2px solid;
     padding-left: 10px;
   }
 
-  .group-badge {
+  .gbadge {
     display: inline-block;
     font-family: 'Syne', sans-serif;
     font-weight: 700;
-    font-size: 0.65rem;
+    font-size: 0.63rem;
     padding: 2px 8px;
     border-radius: 4px;
     letter-spacing: 0.06em;
     text-transform: uppercase;
   }
 
-  .group-A { background: rgba(0,122,138,0.12); color: #007a8a; border: 1px solid rgba(0,122,138,0.3); }
-  .group-B { background: rgba(109,52,199,0.12); color: #6d34c7; border: 1px solid rgba(109,52,199,0.3); }
+  .gA { background: rgba(0,229,200,0.13); color: var(--accent);  border: 1px solid rgba(0,229,200,0.28); }
+  .gB { background: rgba(167,139,250,0.13); color: var(--accent2); border: 1px solid rgba(167,139,250,0.28); }
+
+  .empty td {
+    text-align: center;
+    padding: 48px;
+    color: var(--text-muted);
+    font-size: 0.82rem;
+  }
 </style>
 </head>
 <body>
 
+<!-- HERO -->
 <div class="hero">
-  <h1>Attribution des Outils IA<br>Mini-Projets Master</h1>
-  <p>43 étudiants · 2 groupes · outils IA assignés</p>
-</div>
-
-<div class="group-tabs">
-  <button class="tab-btn active" data-group="all">⬡ Tous les groupes</button>
-  <button class="tab-btn" data-group="A">Groupe A (21 étudiants)</button>
-  <button class="tab-btn" data-group="B">Groupe B (22 étudiants)</button>
-</div>
-
-<div class="search-wrap" style="margin-bottom:20px;max-width:400px;">
-    <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-      <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
-    </svg>
-    <input type="text" id="search" placeholder="Rechercher un étudiant ou un outil...">
+  <span class="hero-line"></span>
+  <h1>Outils IA Mini-Projets Master</h1>
+  <div class="hero-sub">
+    Répertoire des outils IA pour étudiants en recherche
+    <span class="hero-badge" id="badge-count">43</span>
   </div>
+</div>
 
+<!-- FILTERS : Groupe -->
+<div class="filter-section">
+  <div class="filter-label">Groupe</div>
+  <div class="filter-row" id="group-filters">
+    <button class="chip group-chip active" data-group="all">⬡ Tous</button>
+    <button class="chip group-chip" data-group="A">Groupe A</button>
+    <button class="chip group-chip" data-group="B">Groupe B</button>
+  </div>
+</div>
+
+<!-- FILTERS : Catégorie -->
+<div class="filter-section" style="margin-bottom:22px;">
+  <div class="filter-label">Catégorie</div>
+  <div class="filter-row" id="cat-filters"></div>
+</div>
+
+<!-- SEARCH -->
+<div class="search-wrap">
+  <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+    <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+  </svg>
+  <input type="text" id="search" placeholder="Rechercher un étudiant ou un outil...">
+</div>
+
+<!-- STATS -->
 <div class="stats" id="stats"></div>
 
+<!-- TABLE -->
 <div class="table-wrap">
   <table>
     <thead>
@@ -271,127 +335,163 @@
 </div>
 
 <script>
-const CATEGORIES = {
-  "Revue de littérature":      { color: "#007a8a", bg: "rgba(0,122,138,0.10)",    icon: "📚" },
-  "Gestion des références":    { color: "#6d34c7", bg: "rgba(109,52,199,0.10)",   icon: "🗂️" },
-  "Grands modèles de langage": { color: "#1266a8", bg: "rgba(18,102,168,0.10)",   icon: "🤖" },
-  "Écriture & Paraphrase":     { color: "#9a6800", bg: "rgba(154,104,0,0.10)",    icon: "✍️" },
-  "Traduction":                { color: "#b84f00", bg: "rgba(184,79,0,0.10)",     icon: "🌐" },
-  "Présentation visuelle":     { color: "#b5006e", bg: "rgba(181,0,110,0.10)",    icon: "🎨" },
-  "Génération d'images":       { color: "#8a00b8", bg: "rgba(138,0,184,0.10)",    icon: "🖼️" },
-  "Transcription":             { color: "#0d7a50", bg: "rgba(13,122,80,0.10)",    icon: "🎙️" },
-  "Lecture de PDF":            { color: "#c0003a", bg: "rgba(192,0,58,0.10)",     icon: "📄" },
-  "Résumé de littérature":     { color: "#1a7a3a", bg: "rgba(26,122,58,0.10)",    icon: "🔬" },
-  "Brainstorming":             { color: "#9a7000", bg: "rgba(154,112,0,0.10)",    icon: "💡" },
-  "Grammaire & Style":         { color: "#6a1faa", bg: "rgba(106,31,170,0.10)",   icon: "📝" },
-  "Détection de plagiat":      { color: "#b82020", bg: "rgba(184,32,32,0.10)",    icon: "🔍" },
+const CATS = {
+  "Revue de littérature":      { color: "#00e5c8", bg: "rgba(0,229,200,0.11)",   icon: "📚" },
+  "Gestion des références":    { color: "#a78bfa", bg: "rgba(167,139,250,0.11)", icon: "🗂️" },
+  "Grands modèles de langage": { color: "#38bdf8", bg: "rgba(56,189,248,0.11)",  icon: "🤖" },
+  "Écriture & Paraphrase":     { color: "#ffd166", bg: "rgba(255,209,102,0.11)", icon: "✍️" },
+  "Traduction":                { color: "#fb923c", bg: "rgba(251,146,60,0.11)",  icon: "🌐" },
+  "Présentation visuelle":     { color: "#f472b6", bg: "rgba(244,114,182,0.11)", icon: "🎨" },
+  "Génération d'images":       { color: "#e879f9", bg: "rgba(232,121,249,0.11)", icon: "🖼️" },
+  "Transcription":             { color: "#34d399", bg: "rgba(52,211,153,0.11)",  icon: "🎙️" },
+  "Lecture de PDF":            { color: "#ff4d6d", bg: "rgba(255,77,109,0.11)",  icon: "📄" },
+  "Résumé de littérature":     { color: "#4ade80", bg: "rgba(74,222,128,0.11)",  icon: "🔬" },
+  "Brainstorming":             { color: "#fbbf24", bg: "rgba(251,191,36,0.11)",  icon: "💡" },
+  "Grammaire & Style":         { color: "#c084fc", bg: "rgba(192,132,252,0.11)", icon: "📝" },
+  "Détection de plagiat":      { color: "#f87171", bg: "rgba(248,113,113,0.11)", icon: "🔍" },
 };
 
-const ASSIGNMENTS = [
-  { group:"A", name:"Boutaghrout Taoufik",   tool:"Semantic Scholar",               cat:"Revue de littérature",      project:"Cartographier l'évolution d'un thème de recherche sur 10 ans à partir des citations." },
-  { group:"A", name:"EL Maataouy Ilham",     tool:"Elicit",                         cat:"Revue de littérature",      project:"Comparer automatiquement les méthodologies de 20 articles sur un sujet donné." },
-  { group:"A", name:"EL Allaoui Mounaim",    tool:"Zotero",                         cat:"Gestion des références",    project:"Gérer toutes les sources d'un mémoire de master et générer la bibliographie APA." },
-  { group:"A", name:"Barrajjal Nabil",       tool:"ChatGPT",                        cat:"Grands modèles de langage", project:"Structurer et améliorer un plan de mémoire en plusieurs itérations conversationnelles." },
-  { group:"A", name:"Chahidi Rihab",         tool:"QuillBot",                       cat:"Écriture & Paraphrase",     project:"Reformuler un résumé d'article en plusieurs niveaux de complexité pour différents publics." },
-  { group:"A", name:"Abdellati Oussama",     tool:"DeepL Translator",               cat:"Traduction",                project:"Traduire un article anglais en français et évaluer la qualité avec un expert bilingue." },
-  { group:"A", name:"Elaouni Abdelkarim",    tool:"Canva",                          cat:"Présentation visuelle",     project:"Concevoir un poster scientifique professionnel pour une conférence de master." },
-  { group:"A", name:"Aidari Yassin",         tool:"Bing Image Creator",             cat:"Génération d'images",       project:"Créer des illustrations conceptuelles pour un article de vulgarisation scientifique." },
-  { group:"A", name:"Bouchlagham Chafir",    tool:"Otter.ai",                       cat:"Transcription",             project:"Transcrire et analyser thématiquement 3 entretiens pour un mémoire qualitatif." },
-  { group:"A", name:"Bounfour Ibrahim",      tool:"ChatPDF",                        cat:"Lecture de PDF",            project:"Extraire les hypothèses et résultats clés de 10 articles en interrogeant chaque PDF." },
-  { group:"A", name:"Aidone Fahd",           tool:"Scite.ai",                       cat:"Résumé de littérature",     project:"Étudier la réception critique d'un article fondateur dans la littérature récente." },
-  { group:"A", name:"EL Alami Souhaila",     tool:"Miro AI",                        cat:"Brainstorming",             project:"Cartographier collaborativement les concepts d'une problématique de recherche." },
-  { group:"A", name:"Douiri Chahida",        tool:"Grammarly",                      cat:"Écriture & Paraphrase",     project:"Analyser et améliorer le style d'un chapitre de mémoire avec rapport de score détaillé." },
-  { group:"A", name:"Taibi Asmae",           tool:"Quetext",                        cat:"Détection de plagiat",      project:"Vérifier l'originalité d'un mémoire et identifier les passages à reformuler." },
-  { group:"A", name:"Akarach Amine",         tool:"Research Rabbit",                cat:"Revue de littérature",      project:"Construire la carte de citations d'un auteur phare de sa discipline." },
-  { group:"A", name:"Elmahraoui Hind",       tool:"Mendeley",                       cat:"Gestion des références",    project:"Créer une bibliothèque partagée annotée pour un projet de groupe." },
-  { group:"A", name:"Naciri Amine",          tool:"Claude",                         cat:"Grands modèles de langage", project:"Analyser et synthétiser 5 articles scientifiques longs pour produire une revue critique." },
-  { group:"A", name:"Kabbouri Abdelmounaim", tool:"Gamma.app",                      cat:"Présentation visuelle",     project:"Transformer un résumé de mémoire en présentation visuelle en moins de 10 minutes." },
-  { group:"A", name:"Agrour Chaimae",        tool:"SciSpace",                       cat:"Résumé de littérature",     project:"Expliquer et comparer les méthodologies de 5 articles à des étudiants L3." },
-  { group:"A", name:"Boutastas Mohamed",     tool:"ProWritingAid",                  cat:"Grammaire & Style",         project:"Évaluer et améliorer le style académique d'un chapitre de mémoire." },
-  { group:"A", name:"Belarbi Abdelmajid",    tool:"GPTZero",                        cat:"Détection de plagiat",      project:"Étudier la détectabilité de textes IA reformulés par différents outils." },
-  { group:"B", name:"TAGHLAOUI YOUSSEF",     tool:"Consensus",                      cat:"Revue de littérature",      project:"Analyser la convergence/divergence de la littérature sur une hypothèse précise." },
-  { group:"B", name:"AFASI SALMA",           tool:"Paperpile",                      cat:"Gestion des références",    project:"Rédiger un article collaboratif Google Docs avec gestion des sources intégrée." },
-  { group:"B", name:"MAHDAOUI ALI",          tool:"Google Gemini",                  cat:"Grands modèles de langage", project:"Utiliser le mode multimodal pour analyser des graphiques d'articles scientifiques." },
-  { group:"B", name:"ZAGHDOUD NABILA",       tool:"Hemingway Editor",               cat:"Écriture & Paraphrase",     project:"Réécrire une introduction de mémoire pour atteindre un score de lisibilité optimal." },
-  { group:"B", name:"EL HAGOUI AYYOUB",      tool:"Google Translate",               cat:"Traduction",                project:"Comparer les traductions d'un texte spécialisé par 3 outils différents." },
-  { group:"B", name:"HAOUHAOU ISSAME",       tool:"Leonardo.ai",                    cat:"Génération d'images",       project:"Produire une série visuelle cohérente pour illustrer un concept scientifique abstrait." },
-  { group:"B", name:"BOUYAHYI MOHAMMED",     tool:"Fireflies.ai",                   cat:"Transcription",             project:"Analyser les dynamiques de prise de parole dans des entretiens de recherche." },
-  { group:"B", name:"OU SOUH MOHAMED",       tool:"Scholarcy",                      cat:"Lecture de PDF",            project:"Générer des fiches de révision à partir d'une bibliographie de mémoire." },
-  { group:"B", name:"AABID ELHOUSSAINE",     tool:"Notion AI",                      cat:"Brainstorming",             project:"Créer un wiki de projet de recherche avec génération automatique de contenu." },
-  { group:"B", name:"BOUCHAYB MOHAMED",      tool:"Wordtune",                       cat:"Écriture & Paraphrase",     project:"Produire 3 versions différentes (formel, neutre, accessible) d'un même paragraphe." },
-  { group:"B", name:"AANOUI FATIMA",         tool:"Reverso Context",                cat:"Traduction",                project:"Étudier les variations de terminologie scientifique dans des corpus bilingues." },
-  { group:"B", name:"JALAL KHALID",          tool:"SlidesAI",                       cat:"Présentation visuelle",     project:"Générer automatiquement une présentation de 15 slides depuis un rapport PDF." },
-  { group:"B", name:"BOUDLA RIDOUAN",        tool:"Ideogram",                       cat:"Génération d'images",       project:"Créer des infographies visuelles avec texte lisible pour une présentation académique." },
-  { group:"B", name:"OULHAJ HASSAN",         tool:"Microsoft Teams (transcription)", cat:"Transcription",            project:"Analyser les thèmes récurrents dans les transcriptions de réunions de projet." },
-  { group:"B", name:"AFENICH MONAIM",        tool:"Humata AI",                      cat:"Lecture de PDF",            project:"Comparer les résultats de plusieurs études sur un même objet de recherche." },
-  { group:"B", name:"EL KAMOUNI MOHAMMED",   tool:"Explain Paper",                  cat:"Résumé de littérature",     project:"Rendre accessible un article très technique à un public non-spécialiste." },
-  { group:"B", name:"DIOUANI OUMAIMA",       tool:"MindMeister",                    cat:"Brainstorming",             project:"Structurer visuellement le cadre théorique d'un mémoire en carte mentale." },
-  { group:"B", name:"AAZZAB FATIMA",         tool:"Language Tool",                  cat:"Écriture & Paraphrase",     project:"Corriger un article académique en français et en anglais et comparer les erreurs." },
-  { group:"B", name:"LOUCHERI CHAHRAZAD",    tool:"Scribbr",                        cat:"Détection de plagiat",      project:"Analyser l'impact de la paraphrase IA sur les scores de plagiat." },
-  { group:"B", name:"EL MAHDAOUI WALID",     tool:"Microsoft Copilot",              cat:"Grands modèles de langage", project:"Automatiser la rédaction de rapports Word et la mise en forme de tableaux Excel." },
-  { group:"B", name:"TAIBI CHAMA",           tool:"Google Scholar",                 cat:"Revue de littérature",      project:"Créer un dashboard de veille scientifique sur une thématique de mémoire." },
-  { group:"B", name:"EL YAAKOUBI NISRIA",    tool:"Whimsical",                      cat:"Brainstorming",             project:"Modéliser le processus méthodologique d'une recherche en flowchart interactif." },
+const DATA = [
+  { g:"A", name:"Boutaghrout Taoufik",   tool:"Semantic Scholar",               cat:"Revue de littérature",      proj:"Cartographier l'évolution d'un thème de recherche sur 10 ans à partir des citations." },
+  { g:"A", name:"EL Maataouy Ilham",     tool:"Elicit",                         cat:"Revue de littérature",      proj:"Comparer automatiquement les méthodologies de 20 articles sur un sujet donné." },
+  { g:"A", name:"EL Allaoui Mounaim",    tool:"Zotero",                         cat:"Gestion des références",    proj:"Gérer toutes les sources d'un mémoire de master et générer la bibliographie APA." },
+  { g:"A", name:"Barrajjal Nabil",       tool:"ChatGPT",                        cat:"Grands modèles de langage", proj:"Structurer et améliorer un plan de mémoire en plusieurs itérations conversationnelles." },
+  { g:"A", name:"Chahidi Rihab",         tool:"QuillBot",                       cat:"Écriture & Paraphrase",     proj:"Reformuler un résumé d'article en plusieurs niveaux de complexité pour différents publics." },
+  { g:"A", name:"Abdellati Oussama",     tool:"DeepL Translator",               cat:"Traduction",                proj:"Traduire un article anglais en français et évaluer la qualité avec un expert bilingue." },
+  { g:"A", name:"Elaouni Abdelkarim",    tool:"Canva",                          cat:"Présentation visuelle",     proj:"Concevoir un poster scientifique professionnel pour une conférence de master." },
+  { g:"A", name:"Aidari Yassin",         tool:"Bing Image Creator",             cat:"Génération d'images",       proj:"Créer des illustrations conceptuelles pour un article de vulgarisation scientifique." },
+  { g:"A", name:"Bouchlagham Chafir",    tool:"Otter.ai",                       cat:"Transcription",             proj:"Transcrire et analyser thématiquement 3 entretiens pour un mémoire qualitatif." },
+  { g:"A", name:"Bounfour Ibrahim",      tool:"ChatPDF",                        cat:"Lecture de PDF",            proj:"Extraire les hypothèses et résultats clés de 10 articles en interrogeant chaque PDF." },
+  { g:"A", name:"Aidone Fahd",           tool:"Scite.ai",                       cat:"Résumé de littérature",     proj:"Étudier la réception critique d'un article fondateur dans la littérature récente." },
+  { g:"A", name:"EL Alami Souhaila",     tool:"Miro AI",                        cat:"Brainstorming",             proj:"Cartographier collaborativement les concepts d'une problématique de recherche." },
+  { g:"A", name:"Douiri Chahida",        tool:"Grammarly",                      cat:"Écriture & Paraphrase",     proj:"Analyser et améliorer le style d'un chapitre de mémoire avec rapport de score détaillé." },
+  { g:"A", name:"Taibi Asmae",           tool:"Quetext",                        cat:"Détection de plagiat",      proj:"Vérifier l'originalité d'un mémoire et identifier les passages à reformuler." },
+  { g:"A", name:"Akarach Amine",         tool:"Research Rabbit",                cat:"Revue de littérature",      proj:"Construire la carte de citations d'un auteur phare de sa discipline." },
+  { g:"A", name:"Elmahraoui Hind",       tool:"Mendeley",                       cat:"Gestion des références",    proj:"Créer une bibliothèque partagée annotée pour un projet de groupe." },
+  { g:"A", name:"Naciri Amine",          tool:"Claude",                         cat:"Grands modèles de langage", proj:"Analyser et synthétiser 5 articles scientifiques longs pour produire une revue critique." },
+  { g:"A", name:"Kabbouri Abdelmounaim", tool:"Gamma.app",                      cat:"Présentation visuelle",     proj:"Transformer un résumé de mémoire en présentation visuelle en moins de 10 minutes." },
+  { g:"A", name:"Agrour Chaimae",        tool:"SciSpace",                       cat:"Résumé de littérature",     proj:"Expliquer et comparer les méthodologies de 5 articles à des étudiants L3." },
+  { g:"A", name:"Boutastas Mohamed",     tool:"ProWritingAid",                  cat:"Grammaire & Style",         proj:"Évaluer et améliorer le style académique d'un chapitre de mémoire." },
+  { g:"A", name:"Belarbi Abdelmajid",    tool:"GPTZero",                        cat:"Détection de plagiat",      proj:"Étudier la détectabilité de textes IA reformulés par différents outils." },
+  { g:"B", name:"TAGHLAOUI YOUSSEF",     tool:"Consensus",                      cat:"Revue de littérature",      proj:"Analyser la convergence/divergence de la littérature sur une hypothèse précise." },
+  { g:"B", name:"AFASI SALMA",           tool:"Paperpile",                      cat:"Gestion des références",    proj:"Rédiger un article collaboratif Google Docs avec gestion des sources intégrée." },
+  { g:"B", name:"MAHDAOUI ALI",          tool:"Google Gemini",                  cat:"Grands modèles de langage", proj:"Utiliser le mode multimodal pour analyser des graphiques d'articles scientifiques." },
+  { g:"B", name:"ZAGHDOUD NABILA",       tool:"Hemingway Editor",               cat:"Écriture & Paraphrase",     proj:"Réécrire une introduction de mémoire pour atteindre un score de lisibilité optimal." },
+  { g:"B", name:"EL HAGOUI AYYOUB",      tool:"Google Translate",               cat:"Traduction",                proj:"Comparer les traductions d'un texte spécialisé par 3 outils différents." },
+  { g:"B", name:"HAOUHAOU ISSAME",       tool:"Leonardo.ai",                    cat:"Génération d'images",       proj:"Produire une série visuelle cohérente pour illustrer un concept scientifique abstrait." },
+  { g:"B", name:"BOUYAHYI MOHAMMED",     tool:"Fireflies.ai",                   cat:"Transcription",             proj:"Analyser les dynamiques de prise de parole dans des entretiens de recherche." },
+  { g:"B", name:"OU SOUH MOHAMED",       tool:"Scholarcy",                      cat:"Lecture de PDF",            proj:"Générer des fiches de révision à partir d'une bibliographie de mémoire." },
+  { g:"B", name:"AABID ELHOUSSAINE",     tool:"Notion AI",                      cat:"Brainstorming",             proj:"Créer un wiki de projet de recherche avec génération automatique de contenu." },
+  { g:"B", name:"BOUCHAYB MOHAMED",      tool:"Wordtune",                       cat:"Écriture & Paraphrase",     proj:"Produire 3 versions différentes (formel, neutre, accessible) d'un même paragraphe." },
+  { g:"B", name:"AANOUI FATIMA",         tool:"Reverso Context",                cat:"Traduction",                proj:"Étudier les variations de terminologie scientifique dans des corpus bilingues." },
+  { g:"B", name:"JALAL KHALID",          tool:"SlidesAI",                       cat:"Présentation visuelle",     proj:"Générer automatiquement une présentation de 15 slides depuis un rapport PDF." },
+  { g:"B", name:"BOUDLA RIDOUAN",        tool:"Ideogram",                       cat:"Génération d'images",       proj:"Créer des infographies visuelles avec texte lisible pour une présentation académique." },
+  { g:"B", name:"OULHAJ HASSAN",         tool:"Microsoft Teams (transcription)", cat:"Transcription",            proj:"Analyser les thèmes récurrents dans les transcriptions de réunions de projet." },
+  { g:"B", name:"AFENICH MONAIM",        tool:"Humata AI",                      cat:"Lecture de PDF",            proj:"Comparer les résultats de plusieurs études sur un même objet de recherche." },
+  { g:"B", name:"EL KAMOUNI MOHAMMED",   tool:"Explain Paper",                  cat:"Résumé de littérature",     proj:"Rendre accessible un article très technique à un public non-spécialiste." },
+  { g:"B", name:"DIOUANI OUMAIMA",       tool:"MindMeister",                    cat:"Brainstorming",             proj:"Structurer visuellement le cadre théorique d'un mémoire en carte mentale." },
+  { g:"B", name:"AAZZAB FATIMA",         tool:"Language Tool",                  cat:"Écriture & Paraphrase",     proj:"Corriger un article académique en français et en anglais et comparer les erreurs." },
+  { g:"B", name:"LOUCHERI CHAHRAZAD",    tool:"Scribbr",                        cat:"Détection de plagiat",      proj:"Analyser l'impact de la paraphrase IA sur les scores de plagiat." },
+  { g:"B", name:"EL MAHDAOUI WALID",     tool:"Microsoft Copilot",              cat:"Grands modèles de langage", proj:"Automatiser la rédaction de rapports Word et la mise en forme de tableaux Excel." },
+  { g:"B", name:"TAIBI CHAMA",           tool:"Google Scholar",                 cat:"Revue de littérature",      proj:"Créer un dashboard de veille scientifique sur une thématique de mémoire." },
+  { g:"B", name:"EL YAAKOUBI NISRIA",    tool:"Whimsical",                      cat:"Brainstorming",             proj:"Modéliser le processus méthodologique d'une recherche en flowchart interactif." },
 ];
 
-let activeGroup = 'all';
-const tbody = document.getElementById('tbody');
-const searchInput = document.getElementById('search');
-const statsDiv = document.getElementById('stats');
-document.querySelectorAll('.tab-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    activeGroup = btn.dataset.group;
-    render();
-  });
+// ── Build category filter buttons ──────────────────────────────────────────
+const catContainer = document.getElementById('cat-filters');
+const catNames = Object.keys(CATS);
+
+const allCatBtn = document.createElement('button');
+allCatBtn.className = 'chip active';
+allCatBtn.dataset.cat = 'all';
+allCatBtn.textContent = '⬡ Tous';
+catContainer.appendChild(allCatBtn);
+
+catNames.forEach(cat => {
+  const btn = document.createElement('button');
+  btn.className = 'chip';
+  btn.dataset.cat = cat;
+  btn.textContent = CATS[cat].icon + ' ' + cat;
+  catContainer.appendChild(btn);
 });
 
-searchInput.addEventListener('input', render);
+// ── State ──────────────────────────────────────────────────────────────────
+let activeGroup = 'all';
+let activeCat   = 'all';
 
+const tbody      = document.getElementById('tbody');
+const statsEl    = document.getElementById('stats');
+const searchEl   = document.getElementById('search');
+const badgeCount = document.getElementById('badge-count');
+
+// ── Filter chips events ────────────────────────────────────────────────────
+document.getElementById('group-filters').addEventListener('click', e => {
+  const btn = e.target.closest('.chip');
+  if (!btn) return;
+  document.querySelectorAll('#group-filters .chip').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  activeGroup = btn.dataset.group;
+  render();
+});
+
+catContainer.addEventListener('click', e => {
+  const btn = e.target.closest('.chip');
+  if (!btn) return;
+  document.querySelectorAll('#cat-filters .chip').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  activeCat = btn.dataset.cat;
+  render();
+});
+
+searchEl.addEventListener('input', render);
+
+// ── Helpers ────────────────────────────────────────────────────────────────
 function getFiltered() {
-  const q = searchInput.value.toLowerCase();
-  return ASSIGNMENTS.filter(s => {
-    const gm = activeGroup === 'all' || s.group === activeGroup;
-    const sm = !q || s.name.toLowerCase().includes(q) || s.tool.toLowerCase().includes(q) || s.cat.toLowerCase().includes(q);
-    return gm && sm;
+  const q = searchEl.value.toLowerCase();
+  return DATA.filter(s => {
+    if (activeGroup !== 'all' && s.g !== activeGroup) return false;
+    if (activeCat   !== 'all' && s.cat !== activeCat)  return false;
+    if (q && !s.name.toLowerCase().includes(q) && !s.tool.toLowerCase().includes(q) && !s.cat.toLowerCase().includes(q)) return false;
+    return true;
   });
 }
 
 function renderStats(filtered) {
-  statsDiv.innerHTML = '';
+  statsEl.innerHTML = '';
   [
-    { num: filtered.length,                               label: 'Étudiants',  color: '#007a8a' },
-    { num: filtered.filter(s => s.group === 'A').length,  label: 'Groupe A',   color: '#007a8a' },
-    { num: filtered.filter(s => s.group === 'B').length,  label: 'Groupe B',   color: '#6d34c7' },
-    { num: new Set(filtered.map(s => s.cat)).size,        label: 'Catégories', color: '#9a6800' },
-  ].forEach(s => {
+    { num: filtered.length,                               lbl: 'Étudiants',  color: '#00e5c8' },
+    { num: filtered.filter(s => s.g === 'A').length,      lbl: 'Groupe A',   color: '#00e5c8' },
+    { num: filtered.filter(s => s.g === 'B').length,      lbl: 'Groupe B',   color: '#a78bfa' },
+    { num: new Set(filtered.map(s => s.cat)).size,        lbl: 'Catégories', color: '#ffd166' },
+  ].forEach(({ num, lbl, color }) => {
     const c = document.createElement('div');
     c.className = 'stat-card';
-    c.innerHTML = `<span class="num" style="color:${s.color}">${s.num}</span><span class="label">${s.label}</span>`;
-    statsDiv.appendChild(c);
+    c.innerHTML = `<span class="num" style="color:${color}">${num}</span><span class="lbl">${lbl}</span>`;
+    statsEl.appendChild(c);
   });
 }
 
 function render() {
   const filtered = getFiltered();
+  badgeCount.textContent = filtered.length;
   renderStats(filtered);
   tbody.innerHTML = '';
 
-  if (filtered.length === 0) {
-    tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;padding:40px;color:var(--text-muted)">Aucun résultat.</td></tr>`;
+  if (!filtered.length) {
+    tbody.innerHTML = '<tr class="empty"><td colspan="6">Aucun résultat pour cette sélection.</td></tr>';
     return;
   }
 
   filtered.forEach((s, i) => {
-    const cat = CATEGORIES[s.cat];
+    const cat = CATS[s.cat];
     const tr = document.createElement('tr');
     tr.innerHTML = `
-      <td class="num-cell">${String(i+1).padStart(2,'0')}</td>
-      <td><span class="student-name">${s.name}</span></td>
-      <td><span class="group-badge group-${s.group}">Groupe ${s.group}</span></td>
-      <td><span class="tool-name" style="color:${cat.color}">${s.tool}</span></td>
+      <td class="n">${String(i+1).padStart(2,'0')}</td>
+      <td><span class="student">${s.name}</span></td>
+      <td><span class="gbadge g${s.g}">Groupe ${s.g}</span></td>
+      <td><span class="tool" style="color:${cat.color}">${s.tool}</span></td>
       <td><span class="cat-pill" style="color:${cat.color};border-color:${cat.color};background:${cat.bg}">${cat.icon} ${s.cat}</span></td>
-      <td><span class="project-idea" style="border-color:${cat.color}">${s.project}</span></td>
+      <td><span class="project" style="border-color:${cat.color}">${s.proj}</span></td>
     `;
     tbody.appendChild(tr);
   });
